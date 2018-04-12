@@ -82,6 +82,16 @@ def shutdown_message():
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
     return parsed_json
+
+def closing_signed_message():
+    type = str(chr(39))
+    channel_id = generate_byte_array_string(32)
+    fee_satoshis = generate_byte_array_string(2)
+    signature = generate_byte_array_string(64)
+    messageDict = {"type": type, "channel_id": channel_id,"fee_satoshis": fee_satoshis, "signature": signature}
+    parsed_json = json.dumps(messageDict)
+    print(parsed_json)
+    return parsed_json
 def main():
 
 
@@ -93,3 +103,4 @@ funding_created_message()
 funding_signed_message()
 funding_locked_message()
 shutdown_message()
+closing_signed_message()
