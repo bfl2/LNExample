@@ -42,6 +42,16 @@ def accept_channel_message():
 
     return
 
+def funding_created_message():
+    type = str(chr(34))
+    temporary_channel_id = generate_byte_array_string(32)
+    funding_txid = generate_byte_array_string(32)
+    funding_output_index = generate_byte_array_string(2)
+    signature = generate_byte_array_string(64)
+    messageDict = {"type": type, "temporary_channel_id": temporary_channel_id,
+                  "funding_txid":funding_txid, "funding_output_index":funding_output_index,"signature":signature}
+    parsed_json = json.dumps(messageDict)
+    #print(parsed_json)
 def main():
 
 
@@ -49,3 +59,4 @@ def main():
 main()
 open_channel_message()
 accept_channel_message()
+funding_created_message()
