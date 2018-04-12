@@ -62,6 +62,14 @@ def funding_signed_message():
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
     return parsed_json
+
+def funding_locked_message():
+    type = chr(36)
+    channel_id = generate_byte_array_string(32)
+    messageDict = {"type": type, "channel_id": channel_id}
+    parsed_json = json.dumps(messageDict)
+    #print(parsed_json)
+    return parsed_json
 def main():
 
 
@@ -71,3 +79,4 @@ open_channel_message()
 accept_channel_message()
 funding_created_message()
 funding_signed_message()
+funding_locked_message()
