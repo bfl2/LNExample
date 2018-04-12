@@ -40,7 +40,7 @@ def accept_channel_message():
     parsed_json = json.dumps(messageDict)
     #print(shutdown_len, shutdown_len_B, shutdown_len_int, shutdown_scriptpubkey)
 
-    return
+    return parsed_json
 
 def funding_created_message():
     type = str(chr(34))
@@ -52,6 +52,7 @@ def funding_created_message():
                   "funding_txid":funding_txid, "funding_output_index":funding_output_index,"signature":signature}
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
+    return parsed_json
 def main():
 
 
