@@ -26,7 +26,7 @@ def open_channel_message():##campos sao passados como char
     #print (dict(aux))
     return parsed_json
 
-def accept_channel_message():
+def accept_channel_message(): ##valores aleatorios por enquanto
     type = str(chr(33))
     temporary_channel_id = generate_byte_array_string(32)
     funding_pubkey = generate_byte_array_string(33)
@@ -42,7 +42,7 @@ def accept_channel_message():
 
     return parsed_json
 
-def funding_created_message():
+def funding_created_message(): ##funding aleatorio por enquanto
     type = str(chr(34))
     temporary_channel_id = generate_byte_array_string(32)
     funding_txid = generate_byte_array_string(32)
@@ -50,6 +50,15 @@ def funding_created_message():
     signature = generate_byte_array_string(64)
     messageDict = {"type": type, "temporary_channel_id": temporary_channel_id,
                   "funding_txid":funding_txid, "funding_output_index":funding_output_index,"signature":signature}
+    parsed_json = json.dumps(messageDict)
+    #print(parsed_json)
+    return parsed_json
+
+def funding_signed_message():
+    type = chr(35)
+    channel_id = generate_byte_array_string(32)
+    signature = generate_byte_array_string(64)
+    messageDict = {"type": type, "channel_id": channel_id, "signature": signature}
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
     return parsed_json
@@ -61,3 +70,4 @@ main()
 open_channel_message()
 accept_channel_message()
 funding_created_message()
+funding_signed_message()
