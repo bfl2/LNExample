@@ -70,6 +70,18 @@ def funding_locked_message():
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
     return parsed_json
+
+def shutdown_message():
+    type = chr(38)
+    channel_id = generate_byte_array_string(32)
+    len = chr(32)  # 0-255^2 #  usando um valor fixo qualquer # para gerar uma len aleatoria: generate_byte_array_string(2)
+    len_B = len.encode()
+    len_int = int.from_bytes(len_B, byteorder='little')
+    scriptpubkey = generate_byte_array_string(len_int)
+    messageDict = {"type": type, "channel_id": channel_id,"len":len,"scriptpubkey":scriptpubkey}
+    parsed_json = json.dumps(messageDict)
+    #print(parsed_json)
+    return parsed_json
 def main():
 
 
@@ -80,3 +92,4 @@ accept_channel_message()
 funding_created_message()
 funding_signed_message()
 funding_locked_message()
+shutdown_message()
