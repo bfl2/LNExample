@@ -28,3 +28,18 @@ def execute():
         blockchain.HASH,
         funding_satoshis
     ))
+    #Receiving accept_channel message
+    data = SOCK.recv(MAX_LENGTH)
+    data = parse_message(data)
+    #Sending funding_created message
+    SOCK.send(funding_created_message())
+    #receiving funding_signed message
+    data = SOCK.recv(MAX_LENGTH)
+    data = parse_message(data)
+    channel_id = data["channel_id"]
+    #sending funding_locked message
+    SOCK.send(funding_locked_message(channel_id))
+    #receiving funding_locked message
+    data = SOCK.recv(MAX_LENGTH)
+    data = parse_message(data)
+    print(" closed")
