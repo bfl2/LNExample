@@ -6,6 +6,13 @@ import string
 
 MAX_LENGTH = 65535
 
+def generate_byte_array_string(size):#in string format, to be decoded on the receiver
+    bStr =''.join(random.choices(string.ascii_letters + string.digits, k=size))
+    return bStr
+
+def parse_message(data):
+    return json.loads(data)
+    
 def init_message():
     type = str(chr(16))
 
@@ -14,14 +21,7 @@ def init_message():
         } #{key:value,key:value...}
         
     parsed_json = json.dumps(messageDict)
-    return parsed_json
-
-def generate_byte_array_string(size):#in string format, to be decoded on the receiver
-    bStr =''.join(random.choices(string.ascii_letters + string.digits, k=size))
-    return bStr
-
-def parse_message(data):
-    return json.loads(data)
+    return bytearray(parsed_json, 'utf-8')
 
 def open_channel_message(chain_hash, funding_satoshis):##campos sao passados como char
     type = str(chr(32)) ##convertendo os campos para char
@@ -36,7 +36,7 @@ def open_channel_message(chain_hash, funding_satoshis):##campos sao passados com
     parsed_json = json.dumps(messageDict)
     #aux = json.loads(parsed_json)
     #print (dict(aux))
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
 
 def accept_channel_message(temporary_channel_id): ##valores aleatorios por enquanto
     type = str(chr(33))
@@ -59,7 +59,7 @@ def accept_channel_message(temporary_channel_id): ##valores aleatorios por enqua
     parsed_json = json.dumps(messageDict)
     #print(shutdown_len, shutdown_len_B, shutdown_len_int, shutdown_scriptpubkey)
 
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
 
 def funding_created_message(): ##funding aleatorio por enquanto
     type = str(chr(34))
@@ -78,7 +78,7 @@ def funding_created_message(): ##funding aleatorio por enquanto
 
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
 
 def funding_signed_message(channel_id, signature):
     type = chr(35)
@@ -91,7 +91,7 @@ def funding_signed_message(channel_id, signature):
 
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
 
 def funding_locked_message(channel_id):
     type = chr(36)
@@ -104,7 +104,7 @@ def funding_locked_message(channel_id):
 
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
 
 def shutdown_message():
     type = chr(38)
@@ -123,7 +123,7 @@ def shutdown_message():
 
     parsed_json = json.dumps(messageDict)
     #print(parsed_json)
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
 
 def closing_signed_message():
     type = str(chr(39))
@@ -140,4 +140,4 @@ def closing_signed_message():
 
     parsed_json = json.dumps(messageDict)
     print(parsed_json)
-    return parsed_json
+    return bytearray(parsed_json, 'utf-8')
