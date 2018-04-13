@@ -5,10 +5,12 @@ SOCK = None
 
 def execute():
     blockchain.init()
-    print("Funder executed. Stabilising connection...", end='')
+    print("Funder executed.\nInsert host IP:")
     ip = input()
+    print("Stabilising connection...", end='')
     SOCK = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     SOCK.connect((ip, 9735))
+    print(" Ready!")
 
     #send init message
     SOCK.send(messages.init_message())
@@ -17,8 +19,10 @@ def execute():
     data = SOCK.recv(messages.MAX_LENGTH)
     data = messages.parse_message(data)
 
+    funding_satoshis = messages.generate_byte_array_string(8)
+
     #ask to open a channel
     SOCK.send(messages.open_channel_message(
         blockchain.HASH,
-        messages.generate_byte_array_string(8)
+        funding_satoshis
     ))
