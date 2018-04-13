@@ -29,7 +29,7 @@ def execute():
             funding_output_index =messageDic['funding_output_index']
             channel_id = sxor(funding_txid, funding_output_index)
             signature = messageDic['signature']
-            clientsocket.sent(funding_signed_message(channel_id))
+            clientsocket.sent(funding_signed_message(channel_id, signature))
 
 
 

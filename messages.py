@@ -80,9 +80,8 @@ def funding_created_message(): ##funding aleatorio por enquanto
     #print(parsed_json)
     return parsed_json
 
-def funding_signed_message(channel_id):
+def funding_signed_message(channel_id, signature):
     type = chr(35)
-    signature = generate_byte_array_string(64)
 
     messageDict = {
         "type": type,
