@@ -30,6 +30,9 @@ def execute():
             channel_id = sxor(funding_txid, funding_output_index)
             signature = messageDic['signature']
             clientsocket.sent(funding_signed_message(channel_id, signature))
+        elif(type == 36):
+            channel_id = messageDic['channel_id']
+            clientsocket.send(funding_locked_message(channel_id))
 
 
 

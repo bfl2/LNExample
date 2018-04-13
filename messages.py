@@ -93,9 +93,9 @@ def funding_signed_message(channel_id, signature):
     #print(parsed_json)
     return parsed_json
 
-def funding_locked_message():
+def funding_locked_message(channel_id):
     type = chr(36)
-    channel_id = generate_byte_array_string(32)
+
 
     messageDict = {
         "type": type,
