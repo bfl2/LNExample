@@ -17,14 +17,14 @@ def execute():
     while(1):
         # now do something with the clientsocket
         # in this case, we'll pretend this is a threaded server
-        buffer = clientsocket.recv(65535)
+        buffer = clientsocket.recv(MAX_LENGTH)
         messageDic = json.loads(buffer.decode('utf-8'))
         type = ord(messageDic['type'])
         if (type == 16):
             clientsocket.send(init_message())
         elif(type == 32):
             temporary_channel_id = messageDic['temporary_channel_id']
-            clientsocket.send(accept_channel_message(temporary_channel_id))
+            clientsocket.send(accept_channel_message(temporary_channel_id, 4))
         elif(type == 34):
             funding_txid = messageDic['funding_txid']
             funding_output_index =messageDic['funding_output_index']

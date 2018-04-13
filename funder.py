@@ -1,5 +1,7 @@
 import socket
-import messages, blockchain
+import blockchain
+
+from messages import *
 
 SOCK = None
 
@@ -13,16 +15,16 @@ def execute():
     print(" Ready!")
 
     #send init message
-    SOCK.send(messages.init_message())
+    SOCK.send(init_message())
 
     #receive init message
-    data = SOCK.recv(messages.MAX_LENGTH)
-    data = messages.parse_message(data)
+    data = SOCK.recv(MAX_LENGTH)
+    data = parse_message(data)
 
-    funding_satoshis = messages.generate_byte_array_string(8)
+    funding_satoshis = generate_byte_array_string(8)
 
     #ask to open a channel
-    SOCK.send(messages.open_channel_message(
+    SOCK.send(open_channel_message(
         blockchain.HASH,
         funding_satoshis
     ))

@@ -28,7 +28,8 @@ def open_channel_message(chain_hash, funding_satoshis):##campos sao passados com
     temporary_channel_id = generate_byte_array_string(32)
 
     messageDict = {
-        "type": type,"chain_hash":chain_hash, 
+        "type": type,
+        "chain_hash":chain_hash, 
         "temporary_channel_id":temporary_channel_id,
         "funding_satoshis":funding_satoshis
         }
@@ -38,7 +39,7 @@ def open_channel_message(chain_hash, funding_satoshis):##campos sao passados com
     #print (dict(aux))
     return bytearray(parsed_json, 'utf-8')
 
-def accept_channel_message(temporary_channel_id): ##valores aleatorios por enquanto
+def accept_channel_message(temporary_channel_id, minimum_depth): ##valores aleatorios por enquanto
     type = str(chr(33))
     funding_pubkey = "GsKAJGmwAbxJGM9qgJKJhc12L2k9P0E6Q"
     #funding_pubkey = generate_byte_array_string(33)
@@ -52,6 +53,7 @@ def accept_channel_message(temporary_channel_id): ##valores aleatorios por enqua
         "type": type, 
         "temporary_channel_id": temporary_channel_id,
         "funding_pubkey": funding_pubkey,
+        "minimum_depth": minimum_depth,
         "shutdown_len": shutdown_len,
         "shutdown_scriptpubkey": shutdown_scriptpubkey
         }
