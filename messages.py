@@ -38,14 +38,15 @@ def open_channel_message(chain_hash, funding_satoshis):##campos sao passados com
     #print (dict(aux))
     return parsed_json
 
-def accept_channel_message(): ##valores aleatorios por enquanto
+def accept_channel_message(temporary_channel_id): ##valores aleatorios por enquanto
     type = str(chr(33))
-    temporary_channel_id = generate_byte_array_string(32)
-    funding_pubkey = generate_byte_array_string(33)
+    funding_pubkey = "GsKAJGmwAbxJGM9qgJKJhc12L2k9P0E6Q"
+    #funding_pubkey = generate_byte_array_string(33)
     shutdown_len = chr(32)  # 0-255^2 #  usando um valor fixo qualquer # para gerar uma len aleatoria: generate_byte_array_string(2)
     shutdown_len_B = shutdown_len.encode()
     shutdown_len_int = int.from_bytes(shutdown_len_B, byteorder='little')
-    shutdown_scriptpubkey = generate_byte_array_string(shutdown_len_int)
+    shutdown_scriptpubkey = "j7d8rmvjJquyRDVm5E9bofMRl3FLAk1s"
+    #shutdown_scriptpubkey = generate_byte_array_string(shutdown_len_int)
 
     messageDict = {
         "type": type, 
@@ -79,9 +80,8 @@ def funding_created_message(): ##funding aleatorio por enquanto
     #print(parsed_json)
     return parsed_json
 
-def funding_signed_message():
+def funding_signed_message(channel_id):
     type = chr(35)
-    channel_id = generate_byte_array_string(32)
     signature = generate_byte_array_string(64)
 
     messageDict = {
