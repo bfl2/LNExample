@@ -11,7 +11,7 @@ def generate_byte_array_string(size):#in string format, to be decoded on the rec
     return bStr
 
 def parse_message(data):
-    return json.loads(data)
+    return json.loads(data.decode('utf-8'))
     
 def init_message():
     type = str(chr(16))
@@ -63,12 +63,10 @@ def accept_channel_message(temporary_channel_id, minimum_depth): ##valores aleat
 
     return bytearray(parsed_json, 'utf-8')
 
-def funding_created_message(): ##funding aleatorio por enquanto
+def funding_created_message(temporary_channel_id, signature): ##funding aleatorio por enquanto
     type = str(chr(34))
-    temporary_channel_id = generate_byte_array_string(32)
     funding_txid = generate_byte_array_string(32)
     funding_output_index = generate_byte_array_string(2)
-    signature = generate_byte_array_string(64)
 
     messageDict = {
         "type": type,
@@ -108,9 +106,8 @@ def funding_locked_message(channel_id):
     #print(parsed_json)
     return bytearray(parsed_json, 'utf-8')
 
-def shutdown_message():
+def shutdown_message(channel_id):
     type = chr(38)
-    channel_id = generate_byte_array_string(32)
     len = chr(32)  # 0-255^2 #  usando um valor fixo qualquer # para gerar uma len aleatoria: generate_byte_array_string(2)
     len_B = len.encode()
     len_int = int.from_bytes(len_B, byteorder='little')
@@ -127,11 +124,8 @@ def shutdown_message():
     #print(parsed_json)
     return bytearray(parsed_json, 'utf-8')
 
-def closing_signed_message():
+def closing_signed_message(channel_id, fee_satoshis, signature):
     type = str(chr(39))
-    channel_id = generate_byte_array_string(32)
-    fee_satoshis = generate_byte_array_string(2)
-    signature = generate_byte_array_string(64)
 
     messageDict = {
         "type": type,
