@@ -41,18 +41,16 @@ def execute():
         elif(type == 36):#received funding_locked_message -> send funding_locked_message reply
             #channel_id = messageDic['channel_id']
             clientsocket.send(funding_locked_message(channel_id))
-            channel_closed_flag = 1
             print("funding locked!")
         elif(type == 38):#received shutdown
             clientsocket.send(shutdown_message(channel_id))
         elif(type == 39):#close transaction
-            data = clientsocket.recv(MAX_LENGTH)
-            data = parse_message(data)
-            fee_received = data['fee_satoshis']
+            fee_received = messageDic['fee_satoshis']
             fair_fee = fee_received
+            print("sending message")
             clientsocket.send(closing_signed_message(channel_id, fair_fee, SIGNATURE))
-                
+            print("send message")
+            channel_closed_flag = 1
 
-
-
-
+    print("Transaction ended, thank you.")
+    clientsocket.close()

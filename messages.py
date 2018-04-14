@@ -135,5 +135,4 @@ def closing_signed_message(channel_id, fee_satoshis, signature):
         }
 
     parsed_json = json.dumps(messageDict)
-    print(parsed_json)
     return bytearray(parsed_json, 'utf-8')
