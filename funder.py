@@ -47,7 +47,7 @@ def execute():
     #receiving funding_locked message
     data = FUNDEE_SOCKET.recv(MAX_LENGTH)
     data = parse_message(data)
-    print("funding locked!")
+    print("Funding locked!")
 
     ####################
     ### transactions ###
