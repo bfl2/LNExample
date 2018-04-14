@@ -39,7 +39,9 @@ def execute():
     data = FUNDEE_SOCKET.recv(MAX_LENGTH)
     data = parse_message(data)
     channel_id = data["channel_id"]
+    minimum_depth = data["minimum_depth"]
     #sending funding_locked message
+    while(minimum_depth < blockchain.hash_depth): pass
     FUNDEE_SOCKET.send(funding_locked_message(channel_id))
     #receiving funding_locked message
     data = FUNDEE_SOCKET.recv(MAX_LENGTH)
